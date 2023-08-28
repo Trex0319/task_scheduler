@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
+const Category = require("./category");
+
 const taskSchema = new Schema({
   category: {
     type: Schema.Types.ObjectId,
@@ -20,7 +22,19 @@ const taskSchema = new Schema({
     type: String,
     enum: ["Low", "Medium", "High"],
   },
-  tasks: { type: Schema.Types.ObjectId, ref: "Category" },
+});
+
+// when the task is updated or created
+taskSchema.post("save", async function () {
+  // retrieve the current id that is updated
+  const taskID = this._id;
+  const categoryID = this.category;
+  // find the selected category
+  const selectedCategory = await Category.findById(categoryID);
+  // add the task into the selected category
+  selectedCategory.tasks.push(taskID);
+  // save the category
+  await selectedCategory.save();
 });
 
 const Task = model("Task", taskSchema);

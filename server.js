@@ -13,8 +13,8 @@ mongoose
 const categoryRouter = require("./routes/category");
 const taskRouter = require("./routes/task");
 
-app.use("/categories", categoryRouter);
-app.use("/tasks", taskRouter);
+app.use("/category", categoryRouter);
+app.use("/task", taskRouter);
 
 app.get("/", (req, res) => {
   res.send("<a href='/movies'>Movies</a>");
