@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const categorySchema = require("./category");
-
 const taskSchema = new Schema({
   category: {
     type: Schema.Types.ObjectId,
@@ -22,6 +20,7 @@ const taskSchema = new Schema({
     type: String,
     enum: ["Low", "Medium", "High"],
   },
+  tasks: { type: Schema.Types.ObjectId, ref: "Category" },
 });
 
 const Task = model("Task", taskSchema);

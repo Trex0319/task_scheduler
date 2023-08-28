@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-// import model into router
 const Category = require("../models/category");
 
 router.get("/", async (req, res) => {
@@ -13,11 +12,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  // create a placeholder for a new movie
   const newCategory = new Category({
     name: req.body.name,
   });
-  // save the movie into mongodb
   await newCategory.save();
   res.send(newCategory);
 });
