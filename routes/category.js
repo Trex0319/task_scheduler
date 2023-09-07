@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
     await newCategory.save();
     res.status(200).send(newCategory);
   } catch {
-    res.status(400).send({ message: error._message });
+    res.status(400).send({ message: "category not found" });
   }
 });
 
